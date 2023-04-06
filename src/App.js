@@ -1,24 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { createContext, useState, useEffect } from "react";
+import "./App.css";
+
+import { Routes, Route } from "react-router-dom";
+
+import { Navbar, ProductCard, ProductDetailForm } from "./Componant";
+
+export const ContextApi = createContext();
 
 function App() {
+  const [prosuct, setProsuct] = useState([]);
+  const [reLoader, setreLoader] = useState(true);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/user/getProductDetails")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setProsuct(data);
+      })
+      .catch((e) => console.log(e));
+  }, [reLoader]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ContextApi.Provider value={{ prosuct, setProsuct, setreLoader }}>
+      <div className="App">
+        <Navbar />
+
+        <Routes>
+          <Route path="/" element={<ProductCard />} />
+          <Route path="/addProduct" element={<ProductDetailForm />} />
+        </Routes>
+
+        {/* <ProductCard /> */}
+      </div>
+    </ContextApi.Provider>
   );
 }
 
