@@ -1,3 +1,13 @@
+steps for runnig app
+
+before this process run server 
+1) import code
+2 ) npm i run this command in terminal
+3) after the npm installation npm start run this command you can see app running in your browser 
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
